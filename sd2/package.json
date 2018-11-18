@@ -1,0 +1,26 @@
+{
+  "name": "sd2",
+  "version": "0.0.1",
+  "description": "Library for sonifying data",
+  "main": "sd2.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "^5.2.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iaine/playground.git"
+  },
+  "author": "Iain Emsley",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iaine/playground/issues"
+  },
+  "homepage": "https://github.com/iaine/playground#readme"
+}
