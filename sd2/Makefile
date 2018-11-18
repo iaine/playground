@@ -1,4 +1,4 @@
-TEST = ./node_modules/mocha/bin/mocha
+TEST = npm test
 
-make test:
-	$TEST
+test:
+	npm test
