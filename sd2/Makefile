@@ -1,4 +1,4 @@
-TEST = npm test
+TEST=npm test
 
 test:
-	npm test
+	TEST
