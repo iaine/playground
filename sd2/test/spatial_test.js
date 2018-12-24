@@ -1,5 +1,5 @@
 var assert = require("assert");
-var S = require("../spatial.js");
+var S = require("../sd2.js");
 
 
 describe('Spatial', function(){
