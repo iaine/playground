@@ -1,11 +1,9 @@
 /**
-*  Browser data
-*/
+ * Function to hold the Browser data
+ *
+ */
 
-var Kernel = {};
-
-Kernel = {
-  constructor: function() {
+var kernel = function () {
     this.data = [];
     this.mapData = [];
     this.x = screen.width;
@@ -17,9 +15,4 @@ Kernel = {
     this.startY = Math.floor(window.innerHeight/2);
     this.tones = new Map();
     this.history = [];
-  }, 
-
-  
-};
-
-module.exports = Kernel;
+  };
