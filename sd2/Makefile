@@ -3,5 +3,8 @@ TEST=npm test
 test:
 	npm test
 
-build:
-	npx babel sd2.js --out-file sd2-compiled.js --presets=es2015
+build: clean
+	npx babel kernel.js editor.js sd2.js dashboard.js --out-file sd.js --presets=es2015
+
+clean:
+    rm sd.js
