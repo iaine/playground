@@ -15,7 +15,7 @@ var notes = '';
    var error = document.getElementById("error");
    var print = document.getElementById("print");
    //play = new Playground();
-}
+};
 
 /**
 *  Method to print data to the edit screen
@@ -28,17 +28,17 @@ var notes = '';
       print.innerHTML = data;
     }
     print.classList.add("fade");
-}
+};
 
   var setCode = function(code) {
 
   let _code = window[code].toString();
   //let _code = "calculateNewNote(base, newnote) { return base * Math.pow(power, newnote); }"
-  console.log(typeof(_code));
-  if (!editor) { initEditor('edit') };
+
+  if (!editor) { initEditor('edit'); }
   editor.setValue(_code, 1);
   editor.clearSelection();
-}
+};
 
 /**
 *  Method to run the code and
@@ -59,7 +59,7 @@ var notes = '';
      console.log(err);
      error.innerHTML = err;
    }
-}
+};
 
 
 /**
@@ -83,7 +83,7 @@ var storeData = function (code) {
 	} else {
 		console.error(users);
 	}
-   }
+   };
    xhr.send(json);
-}
+};
 
