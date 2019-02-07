@@ -113,20 +113,21 @@ const power = Math.pow(2, 1/12);
 
 /**
  *  Method to split a string and return a count
- * @param textStr
- * @returns {string}
+ * @param textStrDiv
+ * @returns {object}
  */
-var wordCount = function (textStr) {
-  var wordObj = new Object();
-  var splitStr = textStr.split(' ');
+var wordCount = function (textStrDiv) {
+    let textDiv = document.getElementById(textStrDiv);
+    var wordObj = new Object();
+    var splitStr = textStr.split(' ');
 
-  splitStr.forEach(function (x) {
-    if (!wordObj[x]) {
-      o[x] = 1
-    } else {
-      wordObj[x]++
-    }
-  });
+    splitStr.forEach(function (x) {
+        if (!wordObj[x]) {
+            wordObj[x] = 1
+        } else {
+            wordObj[x]++
+        }
+    });
 
-  return JSON.stringify(wordObj);
+    return wordObj;
 };
