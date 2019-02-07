@@ -5,6 +5,10 @@
 
 var editor = '';
 var notes = '';
+var cmd = '';
+
+//holder for session string
+var session = '';
 
  var initEditor = function(divId) {
    editor = ace.edit("editor");
@@ -12,10 +16,9 @@ var notes = '';
    editor.session.setMode("ace/mode/javascript");
 
    editor.on("blur", compile);
-   var error = document.getElementById("error");
-   var print = document.getElementById("print");
-   //play = new Playground();
+   cmd = document.getElementById("console");
 };
+
 
 /**
 *  Method to print data to the edit screen
@@ -23,53 +26,92 @@ var notes = '';
 */
   var showData = function(data, fade=false) {
     if (typeof(data) == "object") {
-      print.innerHTML = JSON.stringify(data);
+        cmd.innerHTML = JSON.stringify(data);
     } else {
-      print.innerHTML = data;
+        cmd.innerHTML = data;
     }
-    print.classList.add("fade");
+    cmd.classList.add("fade");
 };
 
-  var setCode = function(code) {
+/**
+ * Function to call the code from the url
+ * @param code
+ */
+var setCode = function(code) {
 
-  let _code = window[code].toString();
-  //let _code = "calculateNewNote(base, newnote) { return base * Math.pow(power, newnote); }"
+    let _code = window[code].toString();
+    _code += "\n" + setFakeCodeLine(code);
 
-  if (!editor) { initEditor('edit'); }
-  editor.setValue(_code, 1);
-  editor.clearSelection();
-};
+    if (!editor) { initEditor('edit'); }
+    editor.setValue(_code, 1);
+    editor.clearSelection();
+  };
 
+/**
+ * Function to return the main codeline to run it
+ * @param codeline
+ * @returns {string}
+ */
+var setFakeCodeLine = function (codeline) {
+    switch(codeline) {
+        case 'showTags':
+            return codeline + '("leftTroll")';
+            break;
+        case 'concentricTags':
+        case 'findTagPosition':
+            return  codeline + '()';
+            break;
+        default:
+            break;
+    }
+}
+
+/**
+ * Function to set the UUID as a session key
+ * Mainly used for the file system. Perhaps needs linking to log in
+ * @param sessionStr
+ */
+var setSession = function(sessionStr) {
+    session = sessionStr;
+}
+
+/**
+ * Function to get the current session key.
+ * @returns {string}
+ */
+var getSession = function() {
+    return session;
+}
 /**
 *  Method to run the code and
 */
  var compile = function() {
 
    try {
-     let code = editor.getValue();
-     //clear the existing errors;
-     error.innerHTML = '';
-     //let code = edit.textContent;
-     console.log(code);
-     storeData(code);
-     //todo: consider if returns are caught and printed to screen
-     // existing thought goes with not yet. Concentrating on audio
-     eval(code);
+       let code = editor.getValue();
+       //clear the existing errors;
+       cmd.innerHTML = '';
+
+       // store the code using the session key to list the files
+       storeData(code);
+       //@todo: consider if returns are caught and printed to screen
+       // existing thought goes with not yet. Concentrating on audio
+       eval(code);
    } catch (err) {
-     console.log(err);
-     error.innerHTML = err;
+       console.log(err);
+       cmd.innerHTML = err;
    }
 };
 
-
 /**
-*  PUT request
-*
-*/
+ * PUT request to send code and session to the file system for storage
+ * @param code
+ */
 var storeData = function (code) {
 
    let data = {};
    data.code = code;
+   data.session = session;
    let json = JSON.stringify(data);
 
    let xhr = new XMLHttpRequest();
@@ -78,7 +120,7 @@ var storeData = function (code) {
    xhr.setRequestHeader('Content-type','application/json; charset=utf-8');
    xhr.onload = function() {
 	var users = JSON.parse(xhr.responseText);
-	if (xhr.readyState == 4 && xhr.status == "200") {
+	if (xhr.readyState === 4 && xhr.status == "200") {
 		console.table(users);
 	} else {
 		console.error(users);
