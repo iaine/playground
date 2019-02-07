@@ -110,3 +110,23 @@ const power = Math.pow(2, 1/12);
      console.log("Cannot reverse " + incomingdata);
     }
   }
+
+/**
+ *  Method to split a string and return a count
+ * @param textStr
+ * @returns {string}
+ */
+var wordCount = function (textStr) {
+  var wordObj = new Object();
+  var splitStr = textStr.split(' ');
+
+  splitStr.forEach(function (x) {
+    if (!wordObj[x]) {
+      o[x] = 1
+    } else {
+      wordObj[x]++
+    }
+  });
+
+  return JSON.stringify(wordObj);
+};
